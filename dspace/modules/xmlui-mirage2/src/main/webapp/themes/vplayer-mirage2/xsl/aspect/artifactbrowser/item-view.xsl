@@ -94,6 +94,19 @@
         <hr />
         </xsl:if>
 
+        <!-- Add PDF Viewer, if CONTENT's MIMETYPE is 'application/pdf' -->
+        <xsl:if test="(./mets:fileSec/mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='application/pdf'])">
+        <div id="pdf-viewer" style="height:500px;">
+            <embed type="application/pdf" width="100%" height="100%">
+                <xsl:attribute name="src">
+                    <xsl:value-of
+                        select="./mets:fileSec/mets:fileGrp[@USE='CONTENT']/mets:file/mets:FLocat[@LOCTYPE='URL']/@xlink:href" />
+                </xsl:attribute>
+            </embed>
+        </div>
+        <hr />
+        </xsl:if>
+
         <!-- Generate the info about the item from the metadata section -->
         <xsl:apply-templates select="./mets:dmdSec/mets:mdWrap[@OTHERMDTYPE='DIM']/mets:xmlData/dim:dim"
         mode="itemSummaryView-DIM"/>
