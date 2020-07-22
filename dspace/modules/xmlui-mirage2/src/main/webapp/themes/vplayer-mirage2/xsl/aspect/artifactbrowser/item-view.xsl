@@ -40,8 +40,21 @@
     <xsl:output indent="yes"/>
 
     <xsl:template name="itemSummaryView-DIM">
+		
+		<!-- Add UniteGallery -->
+		<xsl:if test="(./mets:fileSec/mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='image/jpeg'])">
+			<div id="gallery" style="display:none;">
+				<xsl:for-each select="./mets:fileSec/mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='image/jpeg']">
+					<img width="50px">
+						<xsl:attribute name="src">
+							<xsl:value-of select="mets:FLocat[@LOCTYPE='URL']/@xlink:href"/>
+						</xsl:attribute>
+					</img>
+				</xsl:for-each>
+			</div>
+		</xsl:if>
+        
         <!-- V.T. Add HTML for the video -->
-
         <xsl:if test="(./mets:fileSec/mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='video/mp4']) and (./mets:fileSec/mets:fileGrp[@USE='CONTENT']/mets:file[@MIMETYPE='video/webm'])">
 
         <!--
